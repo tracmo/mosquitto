@@ -161,6 +161,9 @@ int handle__subscribe(struct mosquitto_db *db, struct mosquitto *context)
 						mosquitto__free(sub);
 						return rc2;
 				}
+			}else{
+				log__printf(NULL, MOSQ_LOG_WARNING, "non-MQTTv311 Subscription is rejected (%s)", sub);
+				qos = 0x80;
 			}
 
 			if(qos != 0x80){
